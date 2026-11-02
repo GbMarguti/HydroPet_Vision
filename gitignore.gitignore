@@ -1,0 +1,21 @@
+# Arquivos e pastas de compilação do Arduino / ESP32
+build/
+bin/
+*.elf
+*.bin
+*.hex
+
+# Pastas locais do ambiente de desenvolvimento
+.vscode/
+.idea/
+*.swp
+*.tmp
+*.bak
+
+# Arquivos de sistema operacional
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs de ambiente de desenvolvimento
+*.log
