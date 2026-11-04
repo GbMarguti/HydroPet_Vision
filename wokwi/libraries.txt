@@ -1,0 +1,5 @@
+Adafruit GFX Library
+Adafruit ILI9341
+Adafruit BusIO
+RTClib
+TJpg_Decoder

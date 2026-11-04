@@ -1,0 +1,14 @@
+# Perfil local. Compile o sketch e o chip conforme LEIA-ME.txt.
+[wokwi]
+version = 1
+firmware = 'build/sketch.ino.merged.bin'
+elf = 'build/sketch.ino.elf'
+
+[[chip]]
+name = 'hydrapet-io'
+binary = 'hydrapet-io.chip.wasm'
+
+[[sdcard]]
+folder = 'sdcard'
+size = '8M'
+writeback = true

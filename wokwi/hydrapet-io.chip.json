@@ -1,0 +1,8 @@
+{
+  "name": "HydraPet I/O",
+  "author": "HydraPet Vision",
+  "pins": [
+    "3V3", "SDA", "SCL", "A0", "A1", "A2", "GND", "ECHO3", "ECHO5", "GATE",
+    "DRAIN", "P7", "P6", "P5", "P4", "P3", "P2", "P1", "P0", ""
+  ]
+}

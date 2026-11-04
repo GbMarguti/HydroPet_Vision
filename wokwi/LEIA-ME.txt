@@ -1,0 +1,62 @@
+HydraPet Vision 2.1 | Como abrir a bancada no Wokwi
+
+Atualização TFT-R2 para quem já montou o projeto
+Pare a simulação e substitua por inteiro as abas sketch.ino e diagram.json. Inicie
+novamente. O serial a 115200 deve mostrar [HydraPet TFT-R2] Inicio do sketch.
+O TFT deve mostrar uma faixa azul e o nome HydraPet antes dos testes de sensores.
+No Wokwi desta revisão, TFT e SD compartilham SCK 18 e MOSI 23. O TFT usa CS 33
+e D/C 25. O cartão usa CS 5 e MISO 19.
+
+Projeto novo
+1. Extraia os arquivos deste ZIP. Abra um projeto Arduino ESP32 em
+   https://wokwi.com/projects/new/esp32 (ESP32 clássico).
+2. Antes de colar o diagrama, use o botão + no painel do circuito, escolha
+   Custom Chip, linguagem C e nome hydrapet-io. Copie o conteúdo dos dois
+   arquivos homônimos para as abas hydrapet-io.chip.c e hydrapet-io.chip.json.
+3. Copie sketch.ino e diagram.json para as abas de mesmo nome, substituindo
+   o conteúdo inicial completo. O diagrama fornecido já contém o chip.
+4. Crie a aba quadro_teste.h e cole seu conteúdo. Copie libraries.txt para
+   uma aba com esse nome, ou adicione suas cinco bibliotecas no Library
+   Manager. Mantenha os nomes dos arquivos, inclusive hífen e sublinhado.
+5. Inicie a simulação. Clique no circuito para usar o teclado. Os três
+   botões também podem ser acionados com o mouse.
+
+Primeira visita
+• O HC-SR04 inicia em 80 cm e o LDR em 500 lux. Na tela inicial, observe
+  o relógio, a distância e o indicador SD OK.
+• No HC-SR04, ajuste para 10 cm e aguarde quatro leituras. Surge a prévia
+  FOTO SALVA. A prévia dura 3 s. Mantendo o alvo, novas fotos podem ser
+  gravadas com intervalo superior a 10 s, até seis por visita.
+• Volte a 80 cm por mais de 8 s. Acesse Menu > Registros de fotos com
+  dois toques curtos na tecla 2 e abra o registro com outro toque em 2.
+• Para testar o IR automático, ajuste o LDR para 1 lux, aguarde pelo menos
+  3 s e ponha o alvo a 25 cm. O indicador IR pode acender antes da visita.
+  Aproxime para 10 cm para obter a foto dessa visita.
+• A tecla 1 avança, a 2 confirma ao soltar e a 3 retrocede. Segurar 2 por
+  mais de 1,2 s retorna ao início nas telas de navegação.
+
+O que os arquivos representam
+O diagrama, o sketch, o quadro JPEG e os dois arquivos de chip formam um
+conjunto. O chip implementa em níveis digitais o PCF8574 a 0x20, a passagem
+do pulso ECHO entre domínios e o chaveamento do indicador IR. Os seis LEDs desenhados em vermelho representam a matriz de 850 nm em
+três ramos de dois. Confira o comando IR no TFT. O quadro gravado muda
+entre as amostras DIA e IR extraídas da Figura 41, T43 e T42. O cartão virtual usa SPI.
+
+Para a placa AI-Thinker, use o .ino original e a pinagem física do
+descritivo. O .bin enviado originalmente corresponde à ESP32-CAM.
+No editor web, o cartão virtual é recriado ao iniciar uma nova simulação.
+
+Para executar em VS Code e guardar os CSV e JPEG no computador
+Crie uma pasta chamada sketch e extraia os arquivos diretamente nela. Use
+Arduino CLI com o núcleo esp32:esp32 3.3.12 e as bibliotecas de
+libraries.txt instaladas, Wokwi CLI 0.28 ou superior e a extensão Wokwi
+para VS Code 4.0 ou superior. Com o terminal nessa pasta, execute:
+
+  arduino-cli compile --fqbn esp32:esp32:esp32:PartitionScheme=huge_app --output-dir build .
+  wokwi-cli chip compile hydrapet-io.chip.c -o hydrapet-io.chip.wasm
+  wokwi-cli lint
+
+Crie uma pasta vazia sdcard junto a wokwi.toml. Abra a pasta sketch no
+VS Code e use o comando “Wokwi: Start Simulator”. Ao parar a simulação,
+a configuração writeback grava os arquivos na pasta sdcard. O binário e o
+ELF em build devem ser do sketch adaptado compilado no primeiro comando.
